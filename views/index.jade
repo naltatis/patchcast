@@ -1,0 +1,14 @@
+!!! 5
+html(lang="de")
+	head
+		title="Patchcast"
+	body
+		h1 pathcast
+		h2 custom podcast feed
+		form(method='POST')
+			input(type='text', name='url', placeholder='enter your audio file url')
+			input(type='submit', value='add')
+		h3 podcast list
+		ul
+		- each item in items
+			li= item
