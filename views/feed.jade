@@ -1,0 +1,11 @@
+!!! xml
+rss(version=2.0)
+	channel
+		title
+		lastBuildDate= new Date()
+		language= "de-de"
+		- each entry in entries
+			item
+				title
+				pubDate= new Date(entry.timestamp)
+				enclosure(url=entry.url)

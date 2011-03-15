@@ -1,0 +1,14 @@
+{ "name" : "patchast"
+, "version" : "0.0.1"
+, "author" : "naltatis"
+, "repository" :
+  { "type" : "git"
+  , "url" : "git://github.com/naltatis/patchcast.git"
+  }
+, "dependencies" : {
+  "redis-client" : ">= 0.3.5",
+  "jade" : ">= 0.8.6",
+  "express": "2.0.0beta3"
+  }
+, "engines" : { "node" : "0.4" }
+}
