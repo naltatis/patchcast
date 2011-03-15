@@ -10,12 +10,21 @@ html(lang="de")
 				h1 PatchCast
 				h2 custom podcast feed
 				form(method='post', action="/")
-					input(type='text', name='url', placeholder='paste your audio or video file url', autofocus)
+					input(type='url', name='url', placeholder='http://url-of-your-audio/file.mp3', autofocus)
 					input(type='submit', value='add')
 				h3 podcast list
 				ul
 				- if (entries)
 					- each entry in entries
-						li= entry.url + " - " + entry.timestamp
+						li
+							strong= entry.title
+							br
+							span= entry.artist
+							br
+							time= new Date(entry.timestamp)
+							br
+							audio(src=entry.url, preload='none', controls)
+							br
+							a(href=entry.url) Download
 				form(method='delete', action="/")
 					input(type='submit', value='clear')

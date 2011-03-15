@@ -2,6 +2,7 @@
 
 var db = require('redis-client').createClient(),
 	express = require('express'),
+	metadata = require('model/metadata'),
 	app = express.createServer(),
 	key = 'mypodcasts';
 
@@ -34,22 +35,29 @@ app.get('/feed', function (req, res) {
 
 // add
 app.post('/', function (req, res) {
-	var data = {
-		url: req.body.url,
-		timestamp: new Date().getTime()
-	};
-	db.get(key, function (err, entries) {
-		entries = JSON.parse(entries);
-		console.log(entries);
+	console.log('getting meta data');
+	metadata(req.body.url, function (meta) {
+		console.log('got meta data');
+		var data = {
+			url: req.body.url,
+			timestamp: new Date().getTime(),
+			title: meta.title,
+			album: meta.album,
+			artist: meta.artist
+		};
 		
-		if(entries) {
-			entries.push(data);
-		} else {
-			entries = [data];
-		}
+		db.get(key, function (err, entries) {
+			entries = JSON.parse(entries);
 
-		db.set(key, JSON.stringify(entries), function () {
-			res.redirect('/');
+			if (entries) {
+				entries.push(data);
+			} else {
+				entries = [data];
+			}
+
+			db.set(key, JSON.stringify(entries), function () {
+				res.redirect('/');
+			});
 		});
 	});
 });
