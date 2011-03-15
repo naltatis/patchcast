@@ -9,7 +9,7 @@ html(lang="de")
 			#content
 				h1 PatchCast
 				h2 custom podcast feed
-				form(method='post')
+				form(method='post', action="/")
 					input(type='text', name='url', placeholder='paste your audio or video file url', autofocus)
 					input(type='submit', value='add')
 				h3 podcast list
@@ -17,5 +17,5 @@ html(lang="de")
 				- if (entries)
 					- each entry in entries
 						li= entry.url + " - " + entry.timestamp
-				form(method='delete')
+				form(method='delete', action="/")
 					input(type='submit', value='clear')
