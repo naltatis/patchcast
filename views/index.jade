@@ -2,29 +2,34 @@
 html(lang="de")
 	head
 		title="PatchCast"
-		link(href='http://fonts.googleapis.com/css?family=Pacifico:regular', rel='stylesheet', type='text/css')
+		link(href='http://fonts.googleapis.com/css?family=Pacifico:regular,bold', rel='stylesheet', type='text/css')
 		link(href='screen.css', rel='stylesheet', type='text/css')
+		link(href='scripts/mediaelement/mediaelementplayer.min.css', rel='stylesheet', type='text/css')
+		script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js')
+		script(src='scripts/mediaelement/mediaelement-and-player.min.js')
+		script(src='scripts/basis.js')
+		link(rel='alternate', type='application/rss+xml', title="PatchCast", href="/feed")
 	body
 		#global
 			#content
 				h1 PatchCast
-				h2 custom podcast feed
+				h2
+					a.icon(href='/feed')
+					a.title(href='/feed') custom podcast feed
 				form(method='post', action="/")
 					input(type='url', name='url', placeholder='http://url-of-your-audio/file.mp3', autofocus)
 					input(type='submit', value='add')
-				h3 podcast list
-				ul
 				- if (entries)
 					- each entry in entries
-						li
-							strong= entry.title
-							br
-							span= entry.artist
-							br
-							time= new Date(entry.timestamp)
-							br
+						article
+							header
+								strong= entry.title
+								- if (entry.artist)
+									span= entry.artist
 							audio(src=entry.url, preload='none', controls)
-							br
-							a(href=entry.url) Download
+							footer
+								a(href=entry.url)= entry.url.replace(/.*\//,'')
+								span= Math.round(entry.size/1024/1024, 2) + " MB"
+								time(datetime=new Date(entry.timestamp))= relativeDate(entry.timestamp)
 				form(method='delete', action="/")
 					input(type='submit', value='clear')

@@ -3,6 +3,7 @@
 var db = require('redis-client').createClient(),
 	express = require('express'),
 	metadata = require('model/metadata'),
+	relativeDate = require('relative-date'),
 	app = express.createServer(),
 	key = 'mypodcasts';
 
@@ -16,8 +17,9 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', function (req, res) {
 	db.get(key, function (err, entries) {
 		var model = {
-			entries: JSON.parse(entries)
-		}
+			entries: JSON.parse(entries),
+			relativeDate: relativeDate
+		};
 		res.render('index', model);
 	});
 });
@@ -28,7 +30,7 @@ app.get('/feed', function (req, res) {
 	db.get(key, function (err, entries) {
 		var model = {
 			entries: JSON.parse(entries)
-		}
+		};
 		res.render('feed', model);
 	});
 });
@@ -43,7 +45,8 @@ app.post('/', function (req, res) {
 			timestamp: new Date().getTime(),
 			title: meta.title,
 			album: meta.album,
-			artist: meta.artist
+			artist: meta.artist,
+			size: meta.size
 		};
 		
 		db.get(key, function (err, entries) {

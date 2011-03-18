@@ -9,7 +9,8 @@
 		"redis-client": ">= 0.3.5",
 		"jade": ">= 0.8.6",
 		"express": "2.0.0beta3",
-		"id3": ">= 0.0.2"
+		"id3": ">= 0.0.2",
+		"relative-date": ">= 1.0.0"
 	},
 	"engines": {
 	"node": "0.4"

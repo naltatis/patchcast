@@ -3,8 +3,8 @@
   padding: 0;
 }
 body {
-  font: 14px "Helvetica Neue", "Lucida Grande", "Arial";
-  background: url("images/back.png");
+  font: 14px "Helvetica Neue", arial, serif;
+  background: url("images/back.png") top center;
 }
 h1 {
   font: 55px "Pacifico", serif;
@@ -15,6 +15,17 @@ h2 {
   font-size: 18px;
   font-weight: normal;
 }
+h2 .icon {
+  background: url("images/feed.png");
+  height: 12px;
+  width: 12px;
+  margin: 0 5px;
+  display: inline-block;
+}
+h2 .title {
+  color: #000;
+  text-decoration: none;
+}
 #global {
   text-align: center;
 }
@@ -23,7 +34,7 @@ h2 {
   margin: 50px auto;
 }
 form {
-  margin: 20px 0;
+  margin: 30px 0;
 }
 input[type=submit],
 input[type=url] {
@@ -42,4 +53,29 @@ input[type=submit] {
   color: #fff;
   background: #000;
   border-radius: 2px;
+}
+.mejs-container {
+  display: inline-block;
+  margin: 4px 0;
+}
+article {
+  list-style-type: none;
+  margin-bottom: 30px;
+}
+article header strong {
+  font-size: 22px;
+  font-weight: bold;
+  display: block;
+}
+article header span {
+  color: #777;
+  font-weight: normal;
+  display: block;
+}
+article footer a,
+article footer span,
+article footer time {
+  color: #777;
+  display: inline-block;
+  margin: 0 5px;
 }

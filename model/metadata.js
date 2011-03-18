@@ -1,41 +1,12 @@
+/*jshint node: true, eqeqeq: true, undef: true, devel: true */
+
 var ID3 = require('id3'),
 	http = require('http'),
 	https = require('https'),
 	url = require('url');
-	
-module.exports = function (path, callback) {
-	
-	var parts = url.parse(path);
 
-	var address = {host: parts.hostname,
-		port: parts.port || 80,
-		path: parts.pathname + (parts.search || "")
-	};
-
-	http.get(address, function (res) {
-		res.on('data', function (chunk) {
-			res.pause();
-
-			var id3Data = new ID3(chunk);
-			id3Data.parse();
-			
-			callback({
-				title: id3Data.get('title'),
-				artist: id3Data.get('artist'),
-				album: id3Data.get('album')
-			});
-		});
-		res.addListener('end', function() {
-			_requestReceived(content, res.headers, callback);
-		});
-	});
-};
-
-/*
-var http_client = {};
-
-function makeRequest(url, callback) {
-	var urlInfo = URL.parse(url);  
+function makeRequest(path, callback) {
+	var urlInfo = url.parse(path);  
 
 	var reqUrl = urlInfo.pathname || '/';
 		reqUrl += urlInfo.search || '';
@@ -43,20 +14,42 @@ function makeRequest(url, callback) {
 
 	var opts = {
 		host: urlInfo.hostname,
-		port: urlInfo.port || (urlInfo.protocol == 'https' ? 443 : 80),
-		path = reqUrl,
+		port: urlInfo.port || (urlInfo.protocol === 'https' ? 443 : 80),
+		path: reqUrl,
 		method: 'GET'
 	};
+	console.log(opts);
 
-	var protocol = (urlInfo.protocol == 'https:' ? https : http);
+	var protocol = (urlInfo.protocol === 'https:' ? https : http);
 
 	var req = protocol.request(opts, function(res) {
-		var content = '';
-		res.setEncoding('utf8');
-		res.addListener('data', function(chunk) {
-			content += chunk; 
+		if (res.statusCode !== 200) {
+			console.log("request failed", opts);
+			return;
+		}
+		
+		res.addListener('data', function (chunk) {
+			callback(chunk, res.headers['content-length']);
+			res.pause();
 		});
-		res.addListener('end', function() {
-			_requestReceived(content, res.headers, callback);
+	});
+	req.end();
+}
+
+function metadata(path, callback) {
+	
+	makeRequest(path, function (data, size) {
+		var id3Data = new ID3(new Buffer(data));
+		id3Data.parse();
+		
+		console.log(id3Data.getTags());
+		callback({
+			title: id3Data.get('title'),
+			artist: id3Data.get('artist'),
+			album: id3Data.get('album'),
+			size: size
 		});
-	});*/
+	});
+}
+
+module.exports = metadata; 
