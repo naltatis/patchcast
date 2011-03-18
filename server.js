@@ -74,4 +74,4 @@ app.del('/', function (req, res) {
 
 db.stream.addListener("connect", function () {});
 
-app.listen(80);
+app.listen(process.env.PORT || 8001);
