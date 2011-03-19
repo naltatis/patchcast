@@ -78,6 +78,7 @@ article header span {
   display: block;
 }
 article footer {
+  font-size: 13px;
   color: #777;
 }
 article footer a,
@@ -86,4 +87,8 @@ article footer time {
   color: #777;
   display: inline-block;
   margin: 0 5px;
+}
+.clear {
+  color: #777;
+  font-size: 11px;
 }

@@ -31,5 +31,4 @@ html(lang="de")
 								time(datetime=new Date(entry.timestamp), title=new Date(entry.timestamp))="added " + relativeDate(entry.timestamp)
 								a.download(href=entry.url, title=entry.url.replace(/.*\//,''))= "download"
 								a.delete(href='#')= "delete"
-				form(method='delete', action="/")
-					input(type='submit', value='clear')
+				a.clear(href="#")= "delete all episodes"
