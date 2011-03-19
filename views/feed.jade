@@ -7,6 +7,8 @@ rss(version=2.0)
 		language= "de-de"
 		- each entry in entries
 			item
-				title
+				title= entry.title
+				- if (entry.artist)
+					author= entry.artist
 				pubDate= new Date(entry.timestamp)
 				enclosure(url=entry.url)
