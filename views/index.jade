@@ -20,7 +20,7 @@ html(lang="de")
 					input(type='url', name='url', placeholder='http://url-of-your-audio/file.mp3', autofocus)
 					input(type='submit', value='add')
 				- if (entries)
-					- each entry in entries
+					- each entry in entries.reverse()
 						article
 							header
 								strong= entry.title

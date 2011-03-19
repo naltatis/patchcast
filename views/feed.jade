@@ -5,7 +5,7 @@ rss(version=2.0)
 		link= "http://patchcast.no.de"
 		lastBuildDate= new Date()
 		language= "de-de"
-		- each entry in entries
+		- each entry in entries.reverse()
 			item
 				title= entry.title
 				- if (entry.artist)
