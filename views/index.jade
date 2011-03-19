@@ -28,8 +28,8 @@ html(lang="de")
 									span= entry.artist
 							audio(src=entry.url, preload='none', controls)
 							footer
-								a(href=entry.url)= entry.url.replace(/.*\//,'')
-								span= Math.round(entry.size/1024/1024, 2) + " MB"
-								time(datetime=new Date(entry.timestamp))= relativeDate(entry.timestamp)
+								time(datetime=new Date(entry.timestamp), title=new Date(entry.timestamp))="added " + relativeDate(entry.timestamp)
+								a.download(href=entry.url, title=entry.url.replace(/.*\//,''))= "download"
+								a.delete(href='#')= "delete"
 				form(method='delete', action="/")
 					input(type='submit', value='clear')
