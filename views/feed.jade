@@ -1,10 +1,11 @@
 !!! xml
-<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:media="http://search.yahoo.com/mrss/">
 channel
 	title= "PatchCast"
 	link= "http://patchcast.no.de"
 	lastBuildDate= dateFormat(new Date(), "ddd, dd mmm yyyy hh:MM:ss TT")
 	itunes:image(href="http://patchcast.no.de/images/coverart.jpg")
+	media:thumbnail(url="http://patchcast.no.de/images/coverart.jpg")
 	language= "de-de"
 	- each entry in entries.reverse()
 		item
