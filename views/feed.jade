@@ -1,14 +1,17 @@
 !!! xml
-rss(version=2.0)
-	channel
-		title= "PatchCast"
-		link= "http://patchcast.no.de"
-		lastBuildDate= dateFormat(new Date(), "ddd, dd mmm yyyy hh:MM:ss TT")
-		language= "de-de"
-		- each entry in entries.reverse()
-			item
-				title= entry.title
-				- if (entry.artist)
-					author= entry.artist
-				pubDate= dateFormat(new Date(entry.timestamp), "ddd, dd mmm yyyy hh:MM:ss TT")
-				enclosure(url=entry.url)
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+channel
+	title= "PatchCast"
+	link= "http://patchcast.no.de"
+	lastBuildDate= dateFormat(new Date(), "ddd, dd mmm yyyy hh:MM:ss TT")
+	itunes:image(href="http://patchcast.no.de/images/coverart.jpg")
+	language= "de-de"
+	- each entry in entries.reverse()
+		item
+			title= entry.title
+			- if (entry.artist)
+				author= entry.artist
+			pubDate= dateFormat(new Date(entry.timestamp), "ddd, dd mmm yyyy hh:MM:ss TT")
+			enclosure(url=entry.url, length=entry.size, type=entry.type)
+			itunes:image(href="http://patchcast.no.de/images/coverart.jpg")
+</rss>
