@@ -10,7 +10,8 @@
 		"jade": ">= 0.8.6",
 		"express": "2.0.0beta3",
 		"id3": ">= 0.0.2",
-		"relative-date": ">= 1.0.0"
+		"relative-date": ">= 1.0.0",
+		"dateformat": "1.0.0-1.2.3"
 	},
 	"engines": {
 	"node": "0.4"

@@ -4,6 +4,7 @@ var db = require('redis-client').createClient(),
 	express = require('express'),
 	metadata = require('model/metadata'),
 	relativeDate = require('relative-date'),
+	dateFormat = require('dateformat'),
 	app = express.createServer(),
 	key = 'mypodcasts';
 
@@ -29,7 +30,8 @@ app.get('/feed', function (req, res) {
 	res.contentType("text/xml");
 	db.get(key, function (err, entries) {
 		var model = {
-			entries: JSON.parse(entries)
+			entries: JSON.parse(entries),
+			dateFormat: dateFormat
 		};
 		res.render('feed', model);
 	});

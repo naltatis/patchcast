@@ -3,12 +3,12 @@ rss(version=2.0)
 	channel
 		title= "PatchCast"
 		link= "http://patchcast.no.de"
-		lastBuildDate= new Date()
+		lastBuildDate= dateFormat(new Date(), "ddd, dd mmm yyyy hh:MM:ss TT")
 		language= "de-de"
 		- each entry in entries.reverse()
 			item
 				title= entry.title
 				- if (entry.artist)
 					author= entry.artist
-				pubDate= new Date(entry.timestamp)
+				pubDate= dateFormat(new Date(entry.timestamp), "ddd, dd mmm yyyy hh:MM:ss TT")
 				enclosure(url=entry.url)
